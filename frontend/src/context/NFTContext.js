@@ -110,24 +110,28 @@ export const NFTProvider = ({ children }) => {
     }
   };
 
-  if (window.ethereum) {
-    window.ethereum.on("accountsChanged", function (accounts) {
-      setIsLoading(true);
-      setCurrentAccount(accounts[0]);
-      setIsLoading(false);
-    });
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", function (accounts) {
+        setIsLoading(true);
+        setCurrentAccount(accounts[0]);
+        setIsLoading(false);
+      });
+  
+      window.ethereum.on("chainChanged", (networkId) => {
+        if (networkId === "0x5") {
+          console.log(networkId);
+          setNetworkError(false);
+        } else {
+          setNetworkError(true);
+          console.log(typeof networkId);
+          console.log("Wtf?");
+        }
+      });
+    }
+  }, [window.ethereum])
 
-    window.ethereum.on("chainChanged", (networkId) => {
-      if (networkId === "0x5") {
-        console.log(networkId);
-        setNetworkError(false);
-      } else {
-        setNetworkError(true);
-        console.log(typeof networkId);
-        console.log("Wtf?");
-      }
-    });
-  }
+  
 
   // const uploadToIFPS = async (file) => {
   //   try {
@@ -310,7 +314,6 @@ export const NFTProvider = ({ children }) => {
         disconnectWallet,
       }}
     >
-      {/* <ToastContainer /> */}
       {children}
     </NFTContext.Provider>
   );

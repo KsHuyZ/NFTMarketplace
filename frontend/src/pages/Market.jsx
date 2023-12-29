@@ -18,6 +18,7 @@ import noNFT from "../assets/images/nfts.svg"
 import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa"
 import { useRef } from "react";
+import { CircularProgress } from "@mui/material";
 
 const Market = () => {
   const { fetchNFTs, connectingWithSmartContract, balanceOf } = useContext(NFTContext)
@@ -25,6 +26,7 @@ const Market = () => {
   const [message, setMessage] = useState(0)
   const [nfts, setNfts] = useState([])
   const [data, setData] = useState(NFT__DATA);
+  const [isLoading, setIsLoading] = useState(false)
   const nameRef = useRef()
 
   const navigate = useNavigate()
@@ -79,9 +81,11 @@ const Market = () => {
   }
 
   const handleFetchNFT = async () => {
+    setIsLoading(true)
     const data = await fetchNFTs()
     setData(data)
     setNfts(data)
+    setIsLoading(false)
   }
 
 
@@ -148,16 +152,20 @@ const Market = () => {
                 </div>
               </div>
             </Col>
+            {isLoading ?
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <CircularProgress style={{ fontSize: 100 }} />
+              </div>
+              : nfts.length > 0 ? nfts?.map((item) => (
+                <Col lg="3" md="4" sm="6" className="mb-4" key={item.id}>
+                  <NftCard item={item} click={handleBuyNFT} />
+                </Col>
+              )) : (<div className="no-nfts">
+                <img src={noNFT} alt="" />
+                <h2>No NFTs</h2>
 
-            {nfts.length > 0 ? nfts?.map((item) => (
-              <Col lg="3" md="4" sm="6" className="mb-4" key={item.id}>
-                <NftCard item={item} click={handleBuyNFT} />
-              </Col>
-            )) : (<div className="no-nfts">
-              <img src={noNFT} alt="" />
-              <h2>No NFTs</h2>
+              </div>)}
 
-            </div>)}
           </Row>
         </Container>
       </section>

@@ -176,11 +176,6 @@ const Create = () => {
                     />
                   </div>
 
-                  <div className="form__input">
-                    <label htmlFor="">Minimum Bid</label>
-                    <input type="number" placeholder="Enter minimum bid" />
-                  </div>
-
                   <div className=" d-flex align-items-center gap-4">
                     <div className="form__input w-50">
                       <label htmlFor="">Starting Date</label>

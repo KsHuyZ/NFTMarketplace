@@ -86,7 +86,7 @@ const NftDetails = () => {
 
   useEffect(() => {
     handleGetNFTDetail()
-  }, [])
+  }, [id])
 
   return (
     <>

@@ -23,7 +23,7 @@ const NftDetails = () => {
   const [showModal, setShowModal] = useState(false)
   const [sell, setSell] = useState(0)
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { connectingWithSmartContract, balanceOf } = useContext(NFTContext)
 
   const handleGetNFTDetail = async () => {

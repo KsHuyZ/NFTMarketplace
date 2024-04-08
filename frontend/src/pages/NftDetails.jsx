@@ -22,11 +22,13 @@ const NftDetails = () => {
   const [nft, setNft] = useState()
   const [showModal, setShowModal] = useState(false)
   const [sell, setSell] = useState(0)
+  const [loading, setLoading] = useState(false)
   const { id } = useParams();
   const navigate = useNavigate();
   const { connectingWithSmartContract, balanceOf } = useContext(NFTContext)
 
   const handleGetNFTDetail = async () => {
+    setLoading(true)
     const contract = await connectingWithSmartContract()
     const data = await contract.getMarketItemById(id)
 
@@ -45,10 +47,7 @@ const NftDetails = () => {
     item.endDay = data[8]
     item.image = data[9]
     setNft(item)
-
-
-
-
+    setLoading(false)
   }
 
   const handleBuyNFT = async () => {
@@ -96,17 +95,17 @@ const NftDetails = () => {
         <Container>
           <Row>
             <Col lg="6" md="6" sm="6">
-              {nft ? (<img
+              {!nft || loading ? (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '100%', height: 546 }} />) : (<img
                 src={nft?.image}
                 alt=""
                 className="w-100 single__nft-img"
-              />) : (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '100%', height: 546 }} />)}
+              />)}
 
             </Col>
 
             <Col lg="6" md="6" sm="6">
               <div className="single__nft__content">
-                {nft ? (<h2> {nft?.title}</h2>) : (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '50%' }} />)}
+                {!nft || loading ? (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '50%' }} />) : (<h2> {nft?.title}</h2>)}
 
                 <div className=" d-flex align-items-center justify-content-between mt-4 mb-4">
                   <div className=" d-flex align-items-center gap-4 single__nft-seen">
@@ -135,7 +134,7 @@ const NftDetails = () => {
 
                     <div className="creator__detail">
                       <p>Created By</p>
-                      {nft ? (<h6>{`${nft?.seller.substring(0, 4)}...${nft?.seller.substring(nft?.seller.length - 4)}`}</h6>) : (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '100%' }} />)}
+                      {!nft || loading ? (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '100%' }} />) : (<h6>{`${nft?.seller.substring(0, 4)}...${nft?.seller.substring(nft?.seller.length - 4)}`}</h6>)}
 
                     </div>
                   </div>
@@ -143,7 +142,7 @@ const NftDetails = () => {
                   <div className="nft__creator d-flex gap-3 align-items-center" style={{ marginLeft: "5em" }}>
                     <div className="creator__detail d-flex align-items-center" style={{ justifyContent: 'space-between', width: '10em' }}>
                       <p>Current Bid</p>
-                      {nft ? (<h6>{nft.price} ETH</h6>) : (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '100%' }} />)}
+                      {!nft || loading ? (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '100%' }} />) : (<h6>{nft.price} ETH</h6>)}
                     </div>
                   </div>
                 </div>

@@ -41,9 +41,7 @@ export const NFTProvider = ({ children }) => {
     setIsLoading(true);
     if (!window.ethereum) {
       setMetaMask(false);
-      console.log("fucl");
     } else {
-      console.log("object");
       const networkVersion = window.ethereum.networkVersion;
       const currentNetWork = networkVersion?.toString();
 
@@ -120,12 +118,9 @@ export const NFTProvider = ({ children }) => {
   
       window.ethereum.on("chainChanged", (networkId) => {
         if (networkId === "0x5") {
-          console.log(networkId);
           setNetworkError(false);
         } else {
           setNetworkError(true);
-          console.log(typeof networkId);
-          console.log("Wtf?");
         }
       });
     }
@@ -184,7 +179,6 @@ export const NFTProvider = ({ children }) => {
       // const provider = new ethers.providers.JsonRpcProvider();
       const contract = await connectingWithSmartContract();
       const data = await contract.fetchMarketItem();
-      console.log("data", data);
       const items = await Promise.all(
         data.map(
           async ({
@@ -221,7 +215,6 @@ export const NFTProvider = ({ children }) => {
           }
         )
       );
-      console.log(items);
       return items;
     } catch (error) {
       console.log(error);
@@ -236,7 +229,6 @@ export const NFTProvider = ({ children }) => {
         type == "fetchItemsListed"
           ? await contract.fetchItemListed()
           : await contract.fetchMyNFT();
-      console.log(data);
       const items = await Promise.all(
         data.map(
           async ({ tokenId, seller, owner, price: unformattedPrice }) => {

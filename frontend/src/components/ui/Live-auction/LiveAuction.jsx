@@ -11,7 +11,7 @@ import ModalPending from "../ModalPending/ModalPending";
 import { ethers } from "ethers";
 
 const LiveAuction = () => {
-  const { fetchNFTs, connectingWithSmartContract,balanceOf } = useContext(NFTContext)
+  const { fetchNFTs, connectingWithSmartContract, balanceOf } = useContext(NFTContext)
   const [showModal, setShowModal] = useState(false)
   const [message, setMessage] = useState(0)
   const handleBuyNFT = async (nft) => {
@@ -24,7 +24,7 @@ const LiveAuction = () => {
       balanceOf()
       setMessage(1)
       handleFetchNFT()
-      
+
     } catch (error) {
       console.log(error);
       setMessage(2)
@@ -38,9 +38,15 @@ const LiveAuction = () => {
   useEffect(() => {
     handleFetchNFT()
   }, [])
+
+  const close = () => {
+    setShowModal(false)
+    setMessage(0)
+  }
+
   return (
     <section>
-      {showModal && <ModalPending create={message} close={setShowModal} />}
+      {showModal && <ModalPending create={message} close={close} />}
       <Container>
         <Row>
           <Col lg="12" className="mb-5">

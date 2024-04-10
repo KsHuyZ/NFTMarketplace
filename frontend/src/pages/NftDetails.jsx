@@ -31,7 +31,7 @@ const NftDetails = () => {
     setLoading(true)
     const contract = await connectingWithSmartContract()
     const data = await contract.getMarketItemById(id)
-
+    console.log(data, loading)
     let item = {}
     item.tokenId = data[0].toNumber()
     item.seller = data[1]
@@ -152,7 +152,10 @@ const NftDetails = () => {
 
                 <button className="singleNft-btn d-flex align-items-center gap-2 w-100" onClick={nft?.owner === NFTMarketPlaceAddress ? handleBuyNFT : handleSellNFT}>
                   <i className="ri-shopping-bag-line"></i>
-                  <Link to="#" >{nft?.owner === NFTMarketPlaceAddress ? "Place a Bid" : "Resell"}</Link>
+                  {!nft || loading ?
+                    (<Skeleton sx={{ bgcolor: '#ffffffaf' }} variant="rounded" style={{ width: '100%' }} />)
+                    : <Link to="#" >{nft?.owner === NFTMarketPlaceAddress ? "Place a Bid" : "Resell"}</Link>}
+
                 </button>
               </div>
             </Col>

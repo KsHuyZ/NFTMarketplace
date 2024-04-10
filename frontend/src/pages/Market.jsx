@@ -156,7 +156,7 @@ const Market = () => {
               <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <CircularProgress style={{ fontSize: 100 }} />
               </div>
-              : nfts.length > 0 ? nfts?.map((item) => (
+              : nfts?.length > 0 ? nfts?.map((item) => (
                 <Col lg="3" md="4" sm="6" className="mb-4" key={item.id}>
                   <NftCard item={item} click={handleBuyNFT} />
                 </Col>

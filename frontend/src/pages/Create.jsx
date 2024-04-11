@@ -120,6 +120,7 @@ const Create = () => {
   const closeAndNavigate = () => {
     setShowModal(false)
     navigate("/market")
+    setCreating(0)
   }
 
   const handleCreateNFT = async () => {

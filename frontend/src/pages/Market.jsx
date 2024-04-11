@@ -100,11 +100,14 @@ const Market = () => {
     const nfts = data.filter((nft, index) => nft.title.toLowerCase().includes(value))
     setNfts(nfts);
   }
-
+  const close = () => {
+    setShowModal(false)
+    setMessage(0)
+  }
 
   return (
     <>
-      {showModal && <ModalPending create={message} close={setShowModal} />}
+      {showModal && <ModalPending create={message} close={close} />}
       <CommonSection title={"MarketPlace"} />
 
       <section>

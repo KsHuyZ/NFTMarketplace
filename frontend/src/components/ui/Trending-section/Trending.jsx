@@ -10,7 +10,7 @@ import { ethers } from "ethers";
 import ModalPending from "../ModalPending/ModalPending";
 
 const Trending = () => {
-  const { fetchNFTs, connectingWithSmartContract,balanceOf } = useContext(NFTContext)
+  const { fetchNFTs, connectingWithSmartContract, balanceOf } = useContext(NFTContext)
   const [showModal, setShowModal] = useState(false)
   const [message, setMessage] = useState(0)
   const [data, setData] = useState(NFT__DATA)
@@ -36,9 +36,13 @@ const Trending = () => {
   useEffect(() => {
     handleFetchNFT()
   }, [])
+  const close = () => {
+    setShowModal(false)
+    setMessage(0)
+  }
   return (
     <section>
-      {showModal && <ModalPending create={message} close={setShowModal} />}
+      {showModal && <ModalPending create={message} close={close} />}
       <Container>
         <Row>
           <Col lg="12" className="mb-5">

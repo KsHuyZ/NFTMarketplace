@@ -87,9 +87,14 @@ const NftDetails = () => {
     handleGetNFTDetail()
   }, [id])
 
+  const close = () => {
+    setShowModal(false)
+    setSell(0)
+  }
+
   return (
     <>
-      {showModal && <ModalPending close={setShowModal} create={sell} />}
+      {showModal && <ModalPending close={close} create={sell} />}
       <CommonSection title={nft?.title} />
       <section>
         <Container>

@@ -124,9 +124,14 @@ const Profile = () => {
     handleGetNFTCreate()
   }, [])
 
+  const close = () => {
+    setShowModal(false)
+    setMessage(0)
+  }
+
   return (
     <>
-      {showModal && <ModalPending create={message} close={setShowModal} />}
+      {showModal && <ModalPending create={message} close={close} />}
       <CommonSection title={"My NFT"} />
       <section>
         <Container>

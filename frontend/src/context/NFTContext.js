@@ -37,35 +37,35 @@ export const NFTProvider = ({ children }) => {
   const [balance, setBalance] = useState();
   const [isConnected, setIsConnected] = useState(false);
   const [metaMask, setMetaMask] = useState(true);
-  const checkIsConnected = async () => {
-    setIsLoading(true);
-    if (!window.ethereum) {
-      setMetaMask(false);
-    } else {
-      const networkVersion = window.ethereum.networkVersion;
-      const currentNetWork = networkVersion?.toString();
+  // const checkIsConnected = async () => {
+  //   setIsLoading(true);
+  //   if (!window.ethereum) {
+  //     setMetaMask(false);
+  //   } else {
+  //     const networkVersion = window.ethereum.networkVersion;
+  //     const currentNetWork = networkVersion?.toString();
 
-      if (currentNetWork !== "5") {
-        setNetworkError(true);
-      } else {
-        setNetworkError(false);
-      }
-      try {
-        const accounts = await window.ethereum.request({
-          method: "eth_accounts",
-        });
-        if (accounts.length > 0) {
-          setCurrentAccount(accounts[0]);
-        } else {
-          setCurrentAccount();
-          localStorage.removeItem("isConnect");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      setIsLoading(false);
-    }
-  };
+  //     if (currentNetWork !== "5") {
+  //       setNetworkError(true);
+  //     } else {
+  //       setNetworkError(false);
+  //     }
+  //     try {
+  //       const accounts = await window.ethereum.request({
+  //         method: "eth_accounts",
+  //       });
+  //       if (accounts.length > 0) {
+  //         setCurrentAccount(accounts[0]);
+  //       } else {
+  //         setCurrentAccount();
+  //         localStorage.removeItem("isConnect");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const connectWallet = async () => {
     setIsLoading(true);
@@ -281,7 +281,7 @@ export const NFTProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    checkIsConnected();
+    // checkIsConnected();
     balanceOf();
     checkFakeConnect();
   }, [currentAccount]);
